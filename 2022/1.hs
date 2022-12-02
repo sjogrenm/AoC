@@ -10,19 +10,16 @@ import qualified Data.Map as Map
 
 import Util
 
-input1 = parseInput r "1.txt"
-  where r :: String -> Int
-        r xs = read xs
+processInput :: String -> [[Int]]
+processInput s = [ [ read x | x <- ys ] | ys <- splitOn [] ls ]
+  where ls = lines s
 
-sol1 (x:xs) = sol1' x xs 0
-sol1' _ [] n = n
-sol1' x (y:ys) n = sol1' y ys (n + if y > x then 1 else 0)
+input1 = do i <- readFile "1.txt"
+            return (processInput i)
 
+sol1 xs = maximum [ sum y | y <- xs ]
 
-sol2 xs = sol1 (slide xs)
-slide (a:b:c:ds) = (a+b+c) : slide (b:c:ds)
-slide _ = []
-
+sol2 xs = sum $ take 3 $ reverse (sort [ sum y | y <- xs ])
 
 main = do i <- input1
           print (sol1 i)
