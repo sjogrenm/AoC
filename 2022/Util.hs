@@ -89,3 +89,5 @@ x `isIn` [] = False
 x `isIn` (y:ys) = x == y || x `isIn` ys
 
 x `isInRange` (a,b) = x >= a && x <= b
+
+notNull x = not (null x)
