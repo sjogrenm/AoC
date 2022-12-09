@@ -40,6 +40,12 @@ splitOnBy f xs = case span (not . f) xs of
 data Queue a = MkQueue [a] [a]
         deriving Show
 
+instance Eq a => Eq (Queue a) where
+  q1 == q2    = qGetList q1 == qGetList q2
+
+instance Ord a => Ord (Queue a) where
+  q1 `compare` q2  = qGetList q1 `compare` qGetList q2
+
 mkQueue :: Queue a
 mkQueue = MkQueue [] []
 
@@ -48,6 +54,8 @@ qPut item (MkQueue ins outs) = MkQueue (item:ins) outs
 
 qPutList :: [a] -> Queue a -> Queue a
 qPutList xs q = foldl' (flip qPut) q xs
+
+qFromList xs = MkQueue [] xs
 
 qGet :: Queue a -> (a, Queue a)
 qGet (MkQueue ins (item:rest)) = (item, MkQueue ins rest)
@@ -59,6 +67,8 @@ qEmpty (MkQueue ins outs) = null ins && null outs
 qGetList :: Queue a -> [a]
 qGetList q | qEmpty q   = []
 qGetList q = let (a,q') = qGet q in a : qGetList q'
+
+qSize (MkQueue ins outs) = length ins + length outs
 
 
 fst3 (a,_,_) = a
