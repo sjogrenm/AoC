@@ -29,7 +29,7 @@ chunk [] = []
 chunk (a:b:c:xs) = [a,b,c] : chunk xs
 
 sol2 xs = sum
-          [ let d:_ = intersect (intersect a b) c
+          [ let d:_ = a `intersect` b `intersect` c
              in val d
           | [a,b,c] <- chunk xs ]
 

@@ -19,13 +19,9 @@ input = parseInput r "4.txt"
                 in ((read c,read d),(read e,read f))
 
 
-sol1 xs = length
-        [ ()
-        | ((c,d),(e,f)) <- xs, let a = [c..d], let b = [e..f], null (a \\ b) || null (b \\ a) ]
+sol1 xs = length [ () | ((c,d),(e,f)) <- xs, let a = [c..d], let b = [e..f], null (a \\ b) || null (b \\ a) ]
 
-sol2 xs = length
-        [ ()
-        | ((c,d),(e,f)) <- xs, let a = [c..d], let b = [e..f], notNull (a `intersect` b) ]
+sol2 xs = length [ () | ((c,d),(e,f)) <- xs, let a = [c..d], let b = [e..f], notNull (a `intersect` b) ]
 
 main = do i <- input
         --   print (head i)

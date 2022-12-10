@@ -25,8 +25,9 @@ moveHead d pos = case d of
 
 
 moveTail (hx,hy) (tx,ty)
-  | abs (hx - tx) <= 1 && abs (hy - ty) <= 1    = (tx,ty)
-  | otherwise                                   = (tx + signum (hx - tx), ty + signum (hy - ty))
+  | abs (hx - tx) > 1 || abs (hy - ty) > 1  = (tx + signum (hx - tx), ty + signum (hy - ty))
+  | otherwise                               = (tx,ty)
+
 --   | hx == tx                = if abs (hy - ty) >= 2 then (tx, ty + signum (hy - ty)) else (tx,ty)
 --   | hy == ty                = if abs (hx - tx) >= 2 then (tx + signum (hx - tx), ty) else (tx,ty)
 
