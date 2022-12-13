@@ -26,8 +26,8 @@ instance Show List where
 instance Ord List where
     compare (LInt x)   (LInt y)   = compare x y
     compare (LList xs) (LList ys) = compare xs ys
-    compare x          (LList ys) = compare (LList [x])  (LList ys)
-    compare (LList xs) y          = compare (LList xs) (LList [y])
+    compare x          (LList ys) = compare (LList [x]) (LList ys)
+    compare (LList xs) y          = compare (LList xs)  (LList [y])
 
 readL s = case parse q "read" s of
             Left err -> error (show err)
@@ -36,8 +36,7 @@ readL s = case parse q "read" s of
         q = fmap LInt integer <|> fmap LList p
 
 integer :: Monad m => ParsecT String u m Int
-integer = do xs <- many1 digit
-             return (read xs)
+integer = fmap read (many1 digit)
 
 input :: IO [(List,List)]
 input = do c <- readFile "13.txt"
