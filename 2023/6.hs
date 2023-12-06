@@ -19,11 +19,13 @@ import Util
 
 dist totT butT = (totT - butT) * butT
 
+input1 :: [(Int,Int)]
 input1 = [(47, 400), (98, 1213), (66, 1011), (98, 1540)]
 
+input2 :: [(Int,Int)]
 input2 = [(47986698, 400121310111540)]
 
-
+sol1 :: [(Int,Int)] -> Int
 sol1 is = product [ length [ butT | butT <- [1..totT-1], dist totT butT > targetD ] | (totT,targetD) <- is ]
 
 main = do -- i <- input
