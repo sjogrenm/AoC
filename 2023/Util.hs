@@ -91,3 +91,6 @@ x `isIn` (y:ys) = x == y || x `isIn` ys
 x `isInRange` (a,b) = x >= a && x <= b
 
 notNull x = not (null x)
+
+listlcm [a] = a
+listlcm (a:b:cs) = lcm a (listlcm (b:cs))
