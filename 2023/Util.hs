@@ -94,3 +94,6 @@ notNull x = not (null x)
 
 listlcm [a] = a
 listlcm (a:b:cs) = lcm a (listlcm (b:cs))
+
+pairs [] = []
+pairs (x:xs) = map (\y -> (x,y)) xs ++ pairs xs
